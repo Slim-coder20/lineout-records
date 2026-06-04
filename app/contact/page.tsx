@@ -1,29 +1,15 @@
-"use client";
-
+import { submitContact } from "@/app/actions/contact";
 import brandIcon from "@/app/icon.png";
 import RequestTypeSelect from "@/components/RequestTypeSelect";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { type SubmitEvent } from "react";
 
 export default function ContactPage() {
-  const router = useRouter();
-  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const requestType = formData.get("requestType") as string;
-    const message = formData.get("message") as string;
-    console.log(name, email, requestType, message);
-
-    // Vider le formulaire après soumission //
-    e.currentTarget.reset();
-    router.push("/contact/success");
-  };
-
   return (
     <main className="container mx-auto max-w-6xl px-6 py-10">
+      <h1 className="mb-10 text-center text-2xl font-semibold text-brand-dark md:mb-12">
+        Vous avez une question ? Nous sommes à votre écoute
+      </h1>
+
       <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
         <div className="flex justify-center md:justify-end">
           <Image
@@ -36,7 +22,7 @@ export default function ContactPage() {
           />
         </div>
 
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+        <form action={submitContact} className="flex flex-col gap-6">
           <div>
             <label
               htmlFor="name"

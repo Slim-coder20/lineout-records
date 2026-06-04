@@ -2,7 +2,7 @@
 
 export default function Home() {
   return (
-    <div>
+    <div className="container mx-auto">
       LineOut Records 
     </div>
   );

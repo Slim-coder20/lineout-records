@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 import brandIcon from "@/app/icon.png";
 
 const navLinks = [
-  { href: "/about", label: "About" },
-  { href: "/artistes", label: "artistes" },
-  { href: "/release", label: "release" },
+  { href: "/about", label: "A propos" },
+  { href: "/artistes", label: "Artistes" },
+  { href: "/release", label: "Productions" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
@@ -41,8 +41,10 @@ function BurgerIcon({ open }: { open: boolean }) {
 }
 
 export default function Navbar() {
+  // State pour le menu mobile // 
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Effet pour gérer le défilement lors du changement de statut du menu mobile // 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -50,6 +52,7 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
+  // Effet pour gérer la fermeture du menu mobile lors de la pression sur la touche Escape // 
   useEffect(() => {
     const onEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -58,10 +61,11 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onEscape);
   }, []);
 
+  // Retourne le composant Navbar // 
   return (
     <nav
       aria-label="Navigation principale"
-      className="fixed top-0 right-0 left-0 z-50 bg-linear-to-b from-brand-cream via-brand-cream-warm to-brand-cream-deep text-brand-dark shadow-[0_4px_24px_-8px_rgba(64,80,80,0.12)]"
+      className="fixed top-0 right-0 left-0 z-50 bg-brand-cream text-brand-dark shadow-[0_4px_24px_-8px_rgba(64,80,80,0.12)]"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
         <Link
@@ -77,8 +81,8 @@ export default function Navbar() {
             className="shrink-0 rounded-full ring-2 ring-brand-accent/60 transition group-hover:ring-brand-accent"
             priority
           />
-          <span className="hidden text-base font-semibold leading-none tracking-wide text-gray-700 transition-colors group-hover:text-gray-900 sm:inline">
-            LineOut Records
+          <span className="hidden text-[#405050] font-semibold leading-none tracking-wide text-gray-700 transition-colors group-hover:text-gray-900 sm:inline">
+            Line Out Records
           </span>
         </Link>
 
@@ -109,7 +113,7 @@ export default function Navbar() {
 
       <div
         id="mobile-menu"
-        className={`overflow-hidden border-t border-brand-dark/10 bg-linear-to-b from-brand-cream-warm to-brand-cream-deep transition-[max-height,opacity] duration-300 ease-in-out md:hidden ${
+        className={`overflow-hidden border-t border-brand-dark/10 bg-brand-cream transition-[max-height,opacity] duration-300 ease-in-out md:hidden ${
           menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-hidden={!menuOpen}

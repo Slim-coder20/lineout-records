@@ -1,7 +1,5 @@
 import React from 'react'
 
 export default function Artists() {
-  return (
-    <div> Artists</div>
-  )
+  return <main className="container mx-auto"> Artists</main>;
 }

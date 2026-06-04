@@ -3,15 +3,15 @@ import Link from "next/link";
 import brandIcon from "@/app/icon.png";
 
 const navLinks = [
-  { href: "/about", label: "About" },
-  { href: "/artistes", label: "artistes" },
-  { href: "/release", label: "release" },
+  { href: "/about", label: "A propos" },
+  { href: "/artistes", label: "Artistes" },
+  { href: "/release", label: "Productions" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 const socialLinks = [
   {
-    href: "https://www.instagram.com/lineoutrecords",
+    href: "https://www.instagram.com/line.out.records/",
     label: "Instagram",
     icon: (
       <svg
@@ -26,7 +26,7 @@ const socialLinks = [
     ),
   },
   {
-    href: "https://www.facebook.com/lineoutrecords",
+    href: "https://www.facebook.com/ala.benfguira",
     label: "Facebook",
     icon: (
       <svg
@@ -44,7 +44,7 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto w-full bg-linear-to-b from-brand-cream via-brand-cream-warm to-brand-cream-deep text-brand-dark shadow-[0_-6px_24px_-8px_rgba(64,80,80,0.12)]">
+    <footer className="mt-auto w-full bg-brand-cream text-brand-dark shadow-[0_-6px_24px_-8px_rgba(64,80,80,0.12)]">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-6 py-10 md:grid-cols-3 md:gap-6">
         <div className="flex justify-center md:justify-start">
           <Link href="/" className="group inline-flex items-center gap-3">
@@ -56,7 +56,7 @@ export default function Footer() {
               className="shrink-0 rounded-full ring-2 ring-brand-accent/60 transition group-hover:ring-brand-accent"
             />
             <span className="text-lg font-semibold leading-none tracking-wide text-gray-700 transition-colors group-hover:text-gray-900">
-              LineOut Records
+              Line Out Records
             </span>
           </Link>
         </div>

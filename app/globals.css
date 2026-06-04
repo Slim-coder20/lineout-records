@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --color-brand-dark: #405050;
   --color-brand-mid: #5a6a6a;
   --color-brand-accent: #c0b090;
@@ -8,5 +9,16 @@
   --color-brand-cream: #f0f0ee;
   --color-brand-cream-warm: #e5dcc8;
   --color-brand-cream-deep: #d4c4a8;
+}
+
+@layer components {
+  .form-field {
+    @apply mt-1 block w-full rounded-lg border border-brand-mid/30 bg-white px-4 py-3 text-brand-dark outline-none transition focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/40;
+  }
+
+  textarea.form-field {
+    @apply min-h-[140px] resize-y;
+  }
+
 }
 

@@ -15,11 +15,10 @@ const artistsSchema = new mongoose.Schema({
     required: true,
   }, 
   slug: {
-    type: String, 
-    unique: true, 
-  }, 
-
-}, {timestamps: true})
+    type: String,
+    unique: true,
+  },
+}, { timestamps: true });
 
 
 artistsSchema.pre("save", async function () {

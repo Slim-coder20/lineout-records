@@ -1,7 +1,6 @@
 import brandIcon from "@/app/icon.png";
+import CtaButton from "@/components/CtaButton";
 import Image from "next/image";
-import Link from "next/link";
-import type { ReactNode } from "react";
 
 const services = [
   {
@@ -52,31 +51,6 @@ const latestProductions = [
     tag: "Production",
   },
 ] as const;
-
-function CtaButton({
-  href,
-  children,
-  variant = "primary",
-}: {
-  href: string;
-  children: ReactNode;
-  variant?: "primary" | "secondary" | "outline";
-}) {
-  const base =
-    "inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2";
-
-  const variants = {
-    primary: `${base} bg-brand-accent text-brand-dark hover:bg-brand-cream-deep`,
-    secondary: `${base} bg-brand-dark text-brand-cream hover:bg-brand-mid`,
-    outline: `${base} border-2 border-brand-dark/20 text-brand-dark hover:border-brand-accent hover:bg-brand-cream-warm`,
-  };
-
-  return (
-    <Link href={href} className={variants[variant]}>
-      {children}
-    </Link>
-  );
-}
 
 export default function Home() {
   return (

@@ -56,7 +56,7 @@ export default function Footer() {
               className="shrink-0 rounded-full ring-2 ring-brand-accent/60 transition group-hover:ring-brand-accent"
             />
             <span className="text-lg font-semibold leading-none tracking-wide text-gray-700 transition-colors group-hover:text-gray-900">
-              Line Out Records
+              LINE OUT RECORDS
             </span>
           </Link>
         </div>

@@ -81,8 +81,8 @@ export default function Navbar() {
             className="shrink-0 rounded-full ring-2 ring-brand-accent/60 transition group-hover:ring-brand-accent"
             priority
           />
-          <span className="hidden text-[#405050] font-semibold leading-none tracking-wide text-gray-700 transition-colors group-hover:text-gray-900 sm:inline">
-            Line Out Records
+          <span className="hidden text-gray-700 font-semibold leading-none tracking-wide  transition-colors group-hover:text-gray-900 sm:inline">
+            LINE OUT RECORDS
           </span>
         </Link>
 

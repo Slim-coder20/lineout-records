@@ -6,12 +6,8 @@ import Image from "next/image";
 export default function ContactPage() {
   return (
     <main className="container mx-auto max-w-6xl px-6 py-10">
-      <h1 className="mb-10 text-center text-2xl font-semibold text-brand-dark md:mb-12">
-        Vous avez une question ? Nous sommes à votre écoute
-      </h1>
-
       <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
-        <div className="flex justify-center md:justify-end">
+        <div className="flex justify-center md:justify-end ">
           <Image
             src={brandIcon}
             alt="LineOut Records"

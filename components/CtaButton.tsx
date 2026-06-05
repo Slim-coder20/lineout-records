@@ -1,3 +1,6 @@
+/**
+ * Bouton d'appel à l'action (lien stylé). Variantes : primary, secondary, outline.
+ */
 import Link from "next/link";
 import type { ReactNode } from "react";
 

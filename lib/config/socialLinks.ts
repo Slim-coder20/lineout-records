@@ -1,3 +1,7 @@
+/**
+ * URLs des réseaux sociaux du label (Instagram, Facebook).
+ * Source unique : modifié ici, reflété dans Footer et pages artistes.
+ */
 export const socialLinks = [
   {
     href: "https://www.instagram.com/line.out.records/",

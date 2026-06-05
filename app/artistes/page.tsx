@@ -1,3 +1,7 @@
+/**
+ * Liste des artistes (/artistes). Données chargées depuis MongoDB via getArtists().
+ * force-dynamic : page toujours rendue à la demande (roster à jour).
+ */
 import ArtistImage from "@/components/ArtistImage";
 import CtaButton from "@/components/CtaButton";
 import SocialLinks from "@/components/SocialLinks";

@@ -1,3 +1,7 @@
+/**
+ * Page d'accueil (/). Vitrine du studio : hero, services, galerie, productions (placeholder).
+ * Données statiques pour l'instant ; productions à brancher sur MongoDB plus tard.
+ */
 import brandIcon from "@/app/icon.png";
 import CtaButton from "@/components/CtaButton";
 import Image from "next/image";

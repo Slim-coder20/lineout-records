@@ -1,3 +1,6 @@
+/**
+ * Pied de page : logo, navigation, liens sociaux (SocialLinks), copyright.
+ */
 import Image from "next/image";
 import Link from "next/link";
 import brandIcon from "@/app/icon.png";

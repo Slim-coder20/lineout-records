@@ -1,3 +1,7 @@
+/**
+ * Fiche artiste (/artistes/[slug]). Route dynamique selon le slug en base.
+ * generateMetadata pour le SEO ; notFound() si l'artiste n'existe pas.
+ */
 import ArtistImage from "@/components/ArtistImage";
 import CtaButton from "@/components/CtaButton";
 import SocialLinks from "@/components/SocialLinks";

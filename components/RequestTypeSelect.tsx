@@ -1,3 +1,7 @@
+/**
+ * Sélecteur custom du type de demande contact (infos / devis).
+ * Client Component : valeur envoyée au serveur via input hidden name="requestType".
+ */
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";

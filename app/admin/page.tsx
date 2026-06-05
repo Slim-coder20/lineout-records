@@ -1,3 +1,7 @@
+/**
+ * Page de connexion admin (/admin). Formulaire branché sur loginAdmin.
+ * Affiche les erreurs via ?error= dans l'URL (identifiants, serveur, etc.).
+ */
 import { loginAdmin } from "@/app/actions/auth";
 import brandIcon from "@/app/icon.png";
 import Image from "next/image";

@@ -1,3 +1,6 @@
+/**
+ * Page de confirmation (/contact/success) après envoi réussi du formulaire contact.
+ */
 import Link from "next/link";
 
 export default function ContactSuccessPage() {

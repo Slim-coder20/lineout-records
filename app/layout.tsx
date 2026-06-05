@@ -1,3 +1,7 @@
+/**
+ * Layout racine : police Poppins, Navbar, Footer, styles globaux.
+ * Enveloppe toutes les pages ; le <main> reçoit {children} (contenu de chaque route).
+ */
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Footer from "@/components/Footer";

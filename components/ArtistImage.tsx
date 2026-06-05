@@ -1,3 +1,6 @@
+/**
+ * Image artiste : next/image pour les fichiers locaux (/...), <img> pour URLs externes.
+ */
 import Image from "next/image";
 
 type ArtistImageProps = {

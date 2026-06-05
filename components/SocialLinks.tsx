@@ -1,3 +1,6 @@
+/**
+ * Icônes cliquables Instagram / Facebook. URLs depuis lib/config/socialLinks.ts.
+ */
 import { socialLinks } from "@/lib/config/socialLinks";
 import type { ReactNode } from "react";
 

@@ -1,3 +1,8 @@
+/**
+ * Server Actions d'authentification admin.
+ * loginAdmin : vérifie email + bcrypt, pose le cookie, redirige.
+ * logoutAdmin : supprime le cookie et renvoie au login.
+ */
 "use server";
 
 import bcrypt from "bcryptjs";

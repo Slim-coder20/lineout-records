@@ -1,3 +1,8 @@
+/**
+ * Session admin : cookie httpOnly signé avec SESSION_SECRET (HMAC-SHA256).
+ * Ne stocke jamais le mot de passe — seulement un jeton prouvant la connexion.
+ * Utilisé par : app/actions/auth.ts, middleware.ts
+ */
 import { cookies } from "next/headers";
 
 const COOKIE_NAME = "admin_session";

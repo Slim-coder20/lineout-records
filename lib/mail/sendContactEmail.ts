@@ -1,3 +1,7 @@
+/**
+ * Envoi d'email de notification via Resend quand un contact est soumis.
+ * Variables : RESEND_API_KEY, MAIL_FROM, MAIL_TO (.env.local).
+ */
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);

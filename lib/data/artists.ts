@@ -1,3 +1,7 @@
+/**
+ * Accès aux données artistes (couche entre les pages et MongoDB).
+ * Retourne des ArtistDTO simples, sans logique Mongoose dans les composants.
+ */
 import { connectToDB } from "@/lib/utils/connectToDB";
 import { Artists } from "@/lib/models/artists";
 import type { ArtistDTO } from "@/lib/types/artist";

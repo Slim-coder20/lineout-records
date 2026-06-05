@@ -1,3 +1,7 @@
+/**
+ * Modèle Mongoose « Artists » : name, description, image, slug.
+ * Le slug est généré automatiquement au save (URL /artistes/[slug]).
+ */
 import mongoose from "mongoose"; 
 import slugify from "slugify"
 

@@ -1,3 +1,7 @@
+/**
+ * Tableau de bord admin (/admin/dashboard). Protégé par middleware.ts.
+ * Point d'entrée futur du CRUD artistes/productions ; déconnexion via logoutAdmin.
+ */
 import { logoutAdmin } from "@/app/actions/auth";
 import type { Metadata } from "next";
 

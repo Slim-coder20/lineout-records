@@ -1,3 +1,7 @@
+/**
+ * Modèle Mongoose « Contact » : stocke les messages du formulaire /contact.
+ * requestType est limité à « infos » ou « devis ».
+ */
 import mongoose from "mongoose";
 
 const contactSchema = new mongoose.Schema(

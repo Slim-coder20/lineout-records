@@ -1,3 +1,7 @@
+/**
+ * Page « À propos » (/about). Présentation du studio, valeurs, équipe.
+ * Contenu statique + metadata SEO.
+ */
 import brandIcon from "@/app/icon.png";
 import CtaButton from "@/components/CtaButton";
 import Image from "next/image";

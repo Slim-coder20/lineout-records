@@ -1,3 +1,7 @@
+/**
+ * Connexion unique à MongoDB via Mongoose.
+ * Réutilise la connexion existante en dev pour éviter les reconnexions au hot reload.
+ */
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;

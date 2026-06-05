@@ -1,3 +1,7 @@
+/**
+ * Styles globaux Tailwind v4 : palette brand-* (couleurs LineOut)
+ * et classe .form-field réutilisée par tous les formulaires.
+ */
 @import "tailwindcss";
 
 @theme {

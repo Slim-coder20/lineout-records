@@ -1,3 +1,7 @@
+/**
+ * Formulaire de contact (/contact). Server Component avec action={submitContact}.
+ * RequestTypeSelect (client) pour le type de demande infos/devis.
+ */
 import { submitContact } from "@/app/actions/contact";
 import brandIcon from "@/app/icon.png";
 import RequestTypeSelect from "@/components/RequestTypeSelect";

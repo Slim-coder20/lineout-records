@@ -1,3 +1,7 @@
+/**
+ * Server Action du formulaire contact.
+ * Valide les champs → enregistre en MongoDB → envoie l'email Resend → redirige.
+ */
 "use server";
 
 import { redirect } from "next/navigation";

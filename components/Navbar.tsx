@@ -1,3 +1,7 @@
+/**
+ * Barre de navigation fixe. Client Component : menu burger mobile (état open/closed).
+ * Liens : About, Artistes, Productions, Contact.
+ */
 "use client";
 
 import Image from "next/image";

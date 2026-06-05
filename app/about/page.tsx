@@ -101,7 +101,7 @@ export default function AboutPage() {
 
           <div className="relative aspect-4/3 overflow-hidden rounded-2xl shadow-[0_16px_40px_-16px_rgba(64,80,80,0.3)]">
             <Image
-              src="/studios/studio_1.png"
+              src="/studios/studio_8.jpeg"
               alt="Vue du studio LineOut Records"
               fill
               className="object-cover"

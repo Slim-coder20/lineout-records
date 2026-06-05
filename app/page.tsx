@@ -86,7 +86,7 @@ export default function Home() {
 
           <div className="relative mx-auto aspect-4/3 w-full max-w-lg overflow-hidden rounded-2xl shadow-[0_20px_50px_-20px_rgba(64,80,80,0.35)]">
             <Image
-              src="/studios/studio_1.png"
+              src="/studios/studio_9.jpeg"
               alt="Studio LineOut Records"
               fill
               className="object-cover"

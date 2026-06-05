@@ -33,7 +33,7 @@ artistsSchema.pre("save", async function () {
     if (existingArtist) {
       this.slug = `${slugArtist}-${existingArtist._id}`;
     }
-  }
+    }
 });
 
 

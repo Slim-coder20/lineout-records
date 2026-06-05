@@ -25,8 +25,7 @@ export default async function ArtistesPage() {
             </p>
             <h1 className="mt-2 text-4xl font-bold text-brand-dark">Nos artistes</h1>
             <p className="mt-4 text-lg text-brand-mid">
-              Les talents accompagnés par LineOut Records — studio, label et
-              réseaux au service de leur musique.
+              Les talents accompagnés par LineOut Records — studio au service de leur musique.
             </p>
             <div className="mt-8">
               <p className="mb-3 text-sm font-medium text-brand-dark">

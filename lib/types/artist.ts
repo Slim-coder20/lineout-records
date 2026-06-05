@@ -5,3 +5,13 @@ export type ArtistDTO = {
   image: string;
   slug: string;
 };
+
+
+export type ProductionDTO = {
+  id : string; 
+  tracks: string[];
+  artist: string;
+  description: string;
+  image: string;
+  slug: string;
+}

@@ -1,3 +1,4 @@
+import { loginAdmin } from "@/app/actions/auth";
 import brandIcon from "@/app/icon.png";
 import Image from "next/image";
 import type { Metadata } from "next";
@@ -7,7 +8,21 @@ export const metadata: Metadata = {
   description: "Espace d'administration LineOut Records",
 };
 
-export default function AdminLoginPage() {
+const ERROR_MESSAGES: Record<string, string> = {
+  "missing-fields": "Veuillez remplir tous les champs.",
+  "invalid-credentials": "Email ou mot de passe incorrect.",
+  server: "Erreur serveur. Réessayez plus tard.",
+};
+
+type AdminLoginPageProps = {
+  searchParams: Promise<{ error?: string }>;
+};
+
+export default async function AdminLoginPage({
+  searchParams,
+}: AdminLoginPageProps) {
+  const { error } = await searchParams;
+  const errorMessage = error ? ERROR_MESSAGES[error] : null;
   return (
     <div className="bg-brand-cream">
       <section className="flex min-h-[calc(100vh-12rem)] items-center justify-center px-6 py-16 md:py-20">
@@ -33,7 +48,16 @@ export default function AdminLoginPage() {
               </p>
             </div>
 
-            <form className="flex flex-col gap-5">
+            {errorMessage ? (
+              <p
+                role="alert"
+                className="mb-5 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+              >
+                {errorMessage}
+              </p>
+            ) : null}
+
+            <form action={loginAdmin} className="flex flex-col gap-5">
               <div>
                 <label
                   htmlFor="email"

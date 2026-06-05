@@ -33,10 +33,10 @@ const studioGallery = [
 
 const latestProductions = [
   {
-    title: "Sessions live",
-    artist: "Résidence artistes",
-    year: "2025",
-    tag: "En cours",
+    title: "The Beginnings",
+    artist: "Slim Abida",
+    year: "2026",
+    tag: "Single",
   },
   {
     title: "EP — sortie prochaine",

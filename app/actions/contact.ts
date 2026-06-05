@@ -1,8 +1,10 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { sendContactEmail } from "@/lib/mail/sendContactEmail";
 import { connectToDB } from "@/lib/utils/connectToDB";
 import { Contact } from "@/lib/models/contact";
+
 
 // introduire les types de requêtes // 
 const REQUEST_TYPES = ["infos", "devis"] as const;
@@ -47,12 +49,11 @@ export async function submitContact(formData: FormData) {
       requestType: requestType as RequestType,
       message,
     });
+    await sendContactEmail({ name, email, requestType, message });
   } catch (error) {
-    // Gestion des erreurs //
-    console.error("Erreur lors de l'enregistrement du contact:", error);
+    console.error("Erreur lors de l'envoi de l'email:", error);
     redirect("/contact?error=server");
   }
 
-  // Redirection vers la page de succès //
   redirect("/contact/success");
 }

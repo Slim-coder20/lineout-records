@@ -1,6 +1,11 @@
 /**
- * Page de connexion admin (/admin). Formulaire branché sur loginAdmin.
- * Affiche les erreurs via ?error= dans l'URL (identifiants, serveur, etc.).
+ * =============================================================================
+ * PAGE LOGIN ADMIN — app/admin/page.tsx
+ * =============================================================================
+ * QUOI   : Formulaire de connexion (/admin).
+ * FLUX   : action={loginAdmin} → vérif identifiants → cookie → /admin/dashboard
+ * ERREURS : affichées via ?error= dans l'URL (ex: ?error=invalid-credentials)
+ * =============================================================================
  */
 import { loginAdmin } from "@/app/actions/auth";
 import brandIcon from "@/app/icon.png";
@@ -12,6 +17,7 @@ export const metadata: Metadata = {
   description: "Espace d'administration LineOut Records",
 };
 
+// Messages d'erreur correspondant aux codes redirect() de loginAdmin
 const ERROR_MESSAGES: Record<string, string> = {
   "missing-fields": "Veuillez remplir tous les champs.",
   "invalid-credentials": "Email ou mot de passe incorrect.",
@@ -27,6 +33,7 @@ export default async function AdminLoginPage({
 }: AdminLoginPageProps) {
   const { error } = await searchParams;
   const errorMessage = error ? ERROR_MESSAGES[error] : null;
+
   return (
     <div className="bg-brand-cream">
       <section className="flex min-h-[calc(100vh-12rem)] items-center justify-center px-6 py-16 md:py-20">
@@ -52,6 +59,7 @@ export default async function AdminLoginPage({
               </p>
             </div>
 
+            {/* Bandeau d'erreur si redirect avec ?error= */}
             {errorMessage ? (
               <p
                 role="alert"
@@ -61,6 +69,7 @@ export default async function AdminLoginPage({
               </p>
             ) : null}
 
+            {/* action={loginAdmin} : soumission gérée côté serveur (Server Action) */}
             <form action={loginAdmin} className="flex flex-col gap-5">
               <div>
                 <label

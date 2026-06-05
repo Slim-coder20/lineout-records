@@ -1,6 +1,12 @@
 /**
- * Formulaire de contact (/contact). Server Component avec action={submitContact}.
- * RequestTypeSelect (client) pour le type de demande infos/devis.
+ * =============================================================================
+ * PAGE CONTACT — app/contact/page.tsx
+ * =============================================================================
+ * QUOI   : Formulaire de contact public (/contact).
+ * FLUX   : <form action={submitContact}> → Server Action → MongoDB + email
+ * NOTE   : RequestTypeSelect est un Client Component (interactif) imbriqué
+ *          dans ce Server Component — pattern courant Next.js App Router.
+ * =============================================================================
  */
 import { submitContact } from "@/app/actions/contact";
 import brandIcon from "@/app/icon.png";
@@ -24,6 +30,7 @@ export default function ContactPage() {
           </h1>
 
           <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
+            {/* Colonne gauche : logo */}
             <div className="flex justify-center md:justify-start md:pr-6 lg:pr-12">
               <Image
                 src={brandIcon}
@@ -35,6 +42,7 @@ export default function ContactPage() {
               />
             </div>
 
+            {/* Colonne droite : formulaire → submitContact (Server Action) */}
             <form action={submitContact} className="flex flex-col gap-6 md:pl-4">
               <div>
                 <label

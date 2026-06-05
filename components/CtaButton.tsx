@@ -1,5 +1,10 @@
 /**
- * Bouton d'appel à l'action (lien stylé). Variantes : primary, secondary, outline.
+ * =============================================================================
+ * BOUTON CTA — components/CtaButton.tsx
+ * =============================================================================
+ * QUOI   : Lien stylé comme un bouton (Call To Action).
+ * POURQUOI : Réutilisable sur toutes les pages avec 3 variantes visuelles.
+ * =============================================================================
  */
 import Link from "next/link";
 import type { ReactNode } from "react";

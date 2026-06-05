@@ -1,5 +1,10 @@
 /**
- * Pied de page : logo, navigation, liens sociaux (SocialLinks), copyright.
+ * =============================================================================
+ * FOOTER — components/Footer.tsx
+ * =============================================================================
+ * QUOI   : Pied de page présent sur toutes les pages (via layout.tsx).
+ * POURQUOI : Logo, liens navigation, réseaux sociaux, copyright.
+ * =============================================================================
  */
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +21,7 @@ const navLinks = [
 export default function Footer() {
   return (
     <footer className="mt-auto w-full bg-brand-cream text-brand-dark shadow-[0_-6px_24px_-8px_rgba(64,80,80,0.12)]">
+      {/* Grille 3 colonnes en desktop : logo | nav | réseaux */}
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-8 px-6 py-10 md:grid-cols-3 md:gap-6">
         <div className="flex justify-center md:justify-start">
           <Link href="/" className="group inline-flex items-center gap-3">

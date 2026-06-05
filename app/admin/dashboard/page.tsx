@@ -1,6 +1,11 @@
 /**
- * Tableau de bord admin (/admin/dashboard). Protégé par middleware.ts.
- * Point d'entrée futur du CRUD artistes/productions ; déconnexion via logoutAdmin.
+ * =============================================================================
+ * DASHBOARD ADMIN — app/admin/dashboard/page.tsx
+ * =============================================================================
+ * QUOI   : Page protégée après connexion (/admin/dashboard).
+ * POURQUOI : middleware.ts bloque l'accès sans cookie valide.
+ * FUTUR  : CRUD artistes et productions sera ajouté ici.
+ * =============================================================================
  */
 import { logoutAdmin } from "@/app/actions/auth";
 import type { Metadata } from "next";
@@ -26,6 +31,7 @@ export default function AdminDashboardPage() {
             arriveront ici.
           </p>
 
+          {/* action={logoutAdmin} : supprime le cookie et redirige vers /admin */}
           <form action={logoutAdmin} className="mt-8">
             <button
               type="submit"

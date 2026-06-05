@@ -1,9 +1,15 @@
 /**
- * Icônes cliquables Instagram / Facebook. URLs depuis lib/config/socialLinks.ts.
+ * =============================================================================
+ * LIENS SOCIAUX — components/SocialLinks.tsx
+ * =============================================================================
+ * QUOI   : Icônes cliquables Instagram + Facebook.
+ * POURQUOI : Composant réutilisable (Footer, page artistes) avec icônes SVG inline.
+ * =============================================================================
  */
 import { socialLinks } from "@/lib/config/socialLinks";
 import type { ReactNode } from "react";
 
+// Map label → icône SVG (évite un switch dans le JSX)
 const icons: Record<(typeof socialLinks)[number]["label"], ReactNode> = {
   Instagram: (
     <svg

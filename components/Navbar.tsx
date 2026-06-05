@@ -1,6 +1,11 @@
 /**
- * Barre de navigation fixe. Client Component : menu burger mobile (état open/closed).
- * Liens : About, Artistes, Productions, Contact.
+ * =============================================================================
+ * NAVBAR — components/Navbar.tsx
+ * =============================================================================
+ * QUOI   : Barre de navigation fixe en haut du site.
+ * POURQUOI : "use client" car le menu burger mobile nécessite useState/useEffect.
+ *            Les Server Components ne peuvent pas gérer l'état interactif.
+ * =============================================================================
  */
 "use client";
 
@@ -16,6 +21,7 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
+/** Icône burger (3 traits) ou croix selon l'état open. */
 function BurgerIcon({ open }: { open: boolean }) {
   return (
     <svg
@@ -45,10 +51,10 @@ function BurgerIcon({ open }: { open: boolean }) {
 }
 
 export default function Navbar() {
-  // State pour le menu mobile // 
+  // État local : menu mobile ouvert ou fermé
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Effet pour gérer le défilement lors du changement de statut du menu mobile // 
+  // Bloque le scroll du body quand le menu mobile est ouvert
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -56,7 +62,7 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Effet pour gérer la fermeture du menu mobile lors de la pression sur la touche Escape // 
+  // Ferme le menu avec la touche Échap (accessibilité)
   useEffect(() => {
     const onEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -65,13 +71,13 @@ export default function Navbar() {
     return () => window.removeEventListener("keydown", onEscape);
   }, []);
 
-  // Retourne le composant Navbar // 
   return (
     <nav
       aria-label="Navigation principale"
       className="fixed top-0 right-0 left-0 z-50 bg-brand-cream text-brand-dark shadow-[0_4px_24px_-8px_rgba(64,80,80,0.12)]"
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
+        {/* Logo + nom — retour accueil */}
         <Link
           href="/"
           className="group inline-flex shrink-0 items-center gap-2.5"
@@ -90,6 +96,7 @@ export default function Navbar() {
           </span>
         </Link>
 
+        {/* Navigation desktop (cachée sur mobile) */}
         <ul className="hidden items-center gap-x-6 md:flex">
           {navLinks.map(({ href, label }) => (
             <li key={href}>
@@ -103,6 +110,7 @@ export default function Navbar() {
           ))}
         </ul>
 
+        {/* Bouton burger — visible uniquement sur mobile */}
         <button
           type="button"
           className="inline-flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-brand-dark/10 md:hidden"
@@ -115,6 +123,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Panneau menu mobile (animation max-height) */}
       <div
         id="mobile-menu"
         className={`overflow-hidden border-t border-brand-dark/10 bg-brand-cream transition-[max-height,opacity] duration-300 ease-in-out md:hidden ${

@@ -1,5 +1,10 @@
 /**
- * Page de confirmation (/contact/success) après envoi réussi du formulaire contact.
+ * =============================================================================
+ * CONTACT SUCCÈS — app/contact/success/page.tsx
+ * =============================================================================
+ * QUOI   : Page affichée après envoi réussi du formulaire (/contact/success).
+ * POURQUOI : submitContact redirige ici une fois MongoDB + email OK.
+ * =============================================================================
  */
 import Link from "next/link";
 

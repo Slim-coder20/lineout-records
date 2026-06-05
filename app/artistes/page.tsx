@@ -1,6 +1,10 @@
 /**
- * Liste des artistes (/artistes). Données chargées depuis MongoDB via getArtists().
- * force-dynamic : page toujours rendue à la demande (roster à jour).
+ * =============================================================================
+ * LISTE ARTISTES — app/artistes/page.tsx
+ * =============================================================================
+ * QUOI   : Grille du roster (/artistes).
+ * FLUX   : getArtists() → MongoDB → cartes cliquables vers /artistes/[slug]
+ * =============================================================================
  */
 import ArtistImage from "@/components/ArtistImage";
 import CtaButton from "@/components/CtaButton";
@@ -21,6 +25,7 @@ export default async function ArtistesPage() {
 
   return (
     <div className="bg-white">
+      {/* Hero de la page */}
       <section className="bg-brand-cream">
         <div className="container mx-auto max-w-6xl px-6 py-16 md:py-20">
           <div className="mx-auto max-w-2xl text-center">
@@ -41,6 +46,7 @@ export default async function ArtistesPage() {
         </div>
       </section>
 
+      {/* Grille artistes ou état vide */}
       <section className="container mx-auto max-w-6xl px-6 py-16 md:py-20">
         {artists.length === 0 ? (
           <div className="rounded-xl border border-brand-mid/20 bg-brand-cream/50 px-6 py-16 text-center">
@@ -61,6 +67,7 @@ export default async function ArtistesPage() {
                 key={artist.id}
                 className="flex flex-col overflow-hidden rounded-xl border border-brand-mid/15 bg-white shadow-sm transition hover:border-brand-accent/40 hover:shadow-md"
               >
+                {/* Photo cliquable → fiche artiste */}
                 <Link
                   href={`/artistes/${artist.slug}`}
                   className="group relative aspect-square overflow-hidden"

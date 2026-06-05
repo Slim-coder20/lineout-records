@@ -1,6 +1,11 @@
 /**
- * Envoi d'email de notification via Resend quand un contact est soumis.
- * Variables : RESEND_API_KEY, MAIL_FROM, MAIL_TO (.env.local).
+ * =============================================================================
+ * EMAIL CONTACT — lib/mail/sendContactEmail.ts
+ * =============================================================================
+ * QUOI   : Envoie un email de notification via l'API Resend.
+ * POURQUOI : Alerter l'équipe LineOut quand quelqu'un remplit le formulaire.
+ * VARIABLES : RESEND_API_KEY, MAIL_FROM, MAIL_TO (.env.local)
+ * =============================================================================
  */
 import { Resend } from "resend";
 
@@ -13,6 +18,7 @@ type ContactEmailPayload = {
   message: string;
 };
 
+// Traduction des codes requestType en libellés lisibles dans l'email
 const requestTypeLabels: Record<string, string> = {
   infos: "Demande d'informations",
   devis: "Demande de devis",
@@ -28,7 +34,7 @@ export async function sendContactEmail(data: ContactEmailPayload) {
   const { error } = await resend.emails.send({
     from: mailFrom,
     to: mailTo,
-    replyTo: data.email,
+    replyTo: data.email, // répondre directement au visiteur
     subject: `Contact LineOut — ${requestLabel}`,
     text: `Nom: ${data.name}\nEmail: ${data.email}\nType: ${requestLabel}\n\n${data.message}`,
   });

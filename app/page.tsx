@@ -1,11 +1,18 @@
 /**
- * Page d'accueil (/). Vitrine du studio : hero, services, galerie, productions (placeholder).
- * Données statiques pour l'instant ; productions à brancher sur MongoDB plus tard.
+ * =============================================================================
+ * PAGE D'ACCUEIL — app/page.tsx
+ * =============================================================================
+ * QUOI   : Vitrine principale du site (/).
+ * SECTIONS : hero, services, galerie studio, productions (placeholder), CTAs.
+ * NOTE   : latestProductions est en dur pour l'instant — à brancher sur
+ *          getProductions() quand la page /release sera stable.
+ * =============================================================================
  */
 import brandIcon from "@/app/icon.png";
 import CtaButton from "@/components/CtaButton";
 import Image from "next/image";
 
+// Données statiques : 4 services proposés par le studio
 const services = [
   {
     title: "Enregistrement",
@@ -29,12 +36,14 @@ const services = [
   },
 ] as const;
 
+// Photos du studio (dossier /public/studios/)
 const studioGallery = [
   { src: "/studios/studio_2.png", alt: "Espace d'enregistrement LineOut Records" },
   { src: "/studios/studio_3.png", alt: "Console et monitoring du studio" },
   { src: "/studios/studio_5.png", alt: "Ambiance du studio LineOut Records" },
 ] as const;
 
+// TODO : remplacer par getProductions() (3 dernières releases MongoDB)
 const latestProductions = [
   {
     title: "The Beginnings",
@@ -59,7 +68,7 @@ const latestProductions = [
 export default function Home() {
   return (
     <div className="bg-white">
-      {/* Hero */}
+      {/* --- Section hero : titre + CTAs + photo studio --- */}
       <section className="bg-brand-cream">
         <div className="container mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24 lg:gap-16">
           <div className="flex flex-col gap-6">
@@ -97,7 +106,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* --- Section services : grille 4 cartes --- */}
       <section className="container mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="mb-12 max-w-2xl">
           <h2 className="text-3xl font-bold text-brand-dark">
@@ -126,7 +135,7 @@ export default function Home() {
         </ul>
       </section>
 
-      {/* Galerie studio */}
+      {/* --- Section galerie : 3 photos du studio --- */}
       <section className="bg-brand-cream-warm/40 py-16 md:py-20">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
@@ -166,7 +175,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Dernières productions */}
+      {/* --- Section productions : placeholder (données en dur) --- */}
       <section className="container mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -203,7 +212,7 @@ export default function Home() {
         </ul>
       </section>
 
-      {/* CTA artistes */}
+      {/* --- CTA : redirection vers /artistes --- */}
       <section className="bg-brand-dark py-16 text-brand-cream md:py-20">
         <div className="container mx-auto flex max-w-6xl flex-col items-center gap-8 px-6 text-center md:flex-row md:text-left">
           <div className="flex-1">
@@ -217,7 +226,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA contact */}
+      {/* --- CTA final : contact + about --- */}
       <section className="bg-brand-cream py-16 md:py-20">
         <div className="container mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-bold text-brand-dark">

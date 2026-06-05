@@ -1,6 +1,10 @@
 /**
- * Configuration Next.js du projet.
- * Point d'entrée pour options futures (images distantes, redirects, etc.).
+ * =============================================================================
+ * CONFIG NEXT.JS — next.config.ts
+ * =============================================================================
+ * QUOI   : Options de configuration Next.js.
+ * POURQUOI : Point d'extension pour images distantes, redirects, etc.
+ * =============================================================================
  */
 import type { NextConfig } from "next";
 

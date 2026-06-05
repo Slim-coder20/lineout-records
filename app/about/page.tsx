@@ -1,6 +1,10 @@
 /**
- * Page « À propos » (/about). Présentation du studio, valeurs, équipe.
- * Contenu statique + metadata SEO.
+ * =============================================================================
+ * PAGE À PROPOS — app/about/page.tsx
+ * =============================================================================
+ * QUOI   : Présentation du studio, valeurs, équipe (/about).
+ * POURQUOI : Contenu statique (pas de MongoDB) — texte éditorial + photos.
+ * =============================================================================
  */
 import brandIcon from "@/app/icon.png";
 import CtaButton from "@/components/CtaButton";
@@ -13,6 +17,7 @@ export const metadata: Metadata = {
     "Découvrez LineOut Records : studio d'enregistrement, label et accompagnement artistique.",
 };
 
+// 4 valeurs fondatrices du studio (affichées en cartes)
 const values = [
   {
     title: "Écoute avant tout",
@@ -36,6 +41,7 @@ const values = [
   },
 ] as const;
 
+// Photos illustrant la page about
 const studioPhotos = [
   { src: "/studios/studio_4.png", alt: "Salle de travail LineOut Records" },
   { src: "/studios/studio_6.png", alt: "Installation studio LineOut Records" },

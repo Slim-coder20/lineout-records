@@ -1,6 +1,10 @@
 /**
- * URLs des réseaux sociaux du label (Instagram, Facebook).
- * Source unique : modifié ici, reflété dans Footer et pages artistes.
+ * =============================================================================
+ * RÉSEAUX SOCIAUX — lib/config/socialLinks.ts
+ * =============================================================================
+ * QUOI   : URLs Instagram et Facebook du label.
+ * POURQUOI : Source unique — modifier ici = mis à jour partout (Footer, artistes).
+ * =============================================================================
  */
 export const socialLinks = [
   {

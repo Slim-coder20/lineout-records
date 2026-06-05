@@ -1,6 +1,11 @@
 /**
- * Sélecteur custom du type de demande contact (infos / devis).
- * Client Component : valeur envoyée au serveur via input hidden name="requestType".
+ * =============================================================================
+ * SELECT TYPE DEMANDE — components/RequestTypeSelect.tsx
+ * =============================================================================
+ * QUOI   : Liste déroulante custom (infos / devis) pour le formulaire contact.
+ * POURQUOI : "use client" = interactif (ouverture, clic, état).
+ *            La valeur est envoyée au serveur via <input type="hidden" name="requestType">.
+ * =============================================================================
  */
 "use client";
 
@@ -14,7 +19,7 @@ const OPTIONS = [
 type RequestTypeValue = (typeof OPTIONS)[number]["value"];
 
 export default function RequestTypeSelect() {
-  const listboxId = useId();
+  const listboxId = useId(); // ID unique pour l'accessibilité (aria-controls)
   const containerRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState<RequestTypeValue>("infos");
@@ -22,6 +27,7 @@ export default function RequestTypeSelect() {
   const selectedLabel =
     OPTIONS.find((option) => option.value === value)?.label ?? "";
 
+  // Ferme le menu si clic en dehors du composant
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -43,8 +49,10 @@ export default function RequestTypeSelect() {
 
   return (
     <div ref={containerRef} className="relative mt-1">
+      {/* Champ invisible inclus dans le FormData à la soumission */}
       <input type="hidden" name="requestType" value={value} required />
 
+      {/* Bouton qui ouvre/ferme la liste (pas un vrai <select> natif) */}
       <button
         type="button"
         id="requestType"

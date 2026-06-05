@@ -1,9 +1,15 @@
 /**
- * Styles globaux Tailwind v4 : palette brand-* (couleurs LineOut)
- * et classe .form-field réutilisée par tous les formulaires.
+ * =============================================================================
+ * STYLES GLOBAUX — app/globals.css
+ * =============================================================================
+ * QUOI   : Palette de couleurs LineOut + styles de formulaires partagés.
+ * POURQUOI : Tailwind v4 @theme définit les couleurs brand-* réutilisables
+ *            partout (text-brand-dark, bg-brand-cream, etc.).
+ * =============================================================================
  */
 @import "tailwindcss";
 
+/* Déclaration des couleurs custom accessibles via Tailwind (bg-brand-accent…) */
 @theme {
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --color-brand-dark: #405050;
@@ -16,6 +22,7 @@
 }
 
 @layer components {
+  /* Classe partagée par tous les champs de formulaire (contact, admin…) */
   .form-field {
     @apply mt-1 block w-full rounded-lg border border-brand-mid/30 bg-white px-4 py-3 text-brand-dark outline-none transition focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/40;
   }
@@ -23,6 +30,4 @@
   textarea.form-field {
     @apply min-h-[140px] resize-y;
   }
-
 }
-

@@ -1,6 +1,11 @@
 /**
- * Fiche artiste (/artistes/[slug]). Route dynamique selon le slug en base.
- * generateMetadata pour le SEO ; notFound() si l'artiste n'existe pas.
+ * =============================================================================
+ * FICHE ARTISTE — app/artistes/[slug]/page.tsx
+ * =============================================================================
+ * QUOI   : Page détail d'un artiste (/artistes/slim-abida par ex.).
+ * FLUX   : params.slug → getArtistBySlug() → affichage ou notFound()
+ * SEO    : generateMetadata() définit titre/description dynamiques.
+ * =============================================================================
  */
 import ArtistImage from "@/components/ArtistImage";
 import CtaButton from "@/components/CtaButton";
@@ -16,6 +21,7 @@ type ArtistDetailsPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+/** Métadonnées SEO dynamiques selon l'artiste trouvé. */
 export async function generateMetadata({
   params,
 }: ArtistDetailsPageProps): Promise<Metadata> {
@@ -38,6 +44,7 @@ export default async function ArtistDetailsPage({
   const { slug } = await params;
   const artist = await getArtistBySlug(slug);
 
+  // Artiste inexistant → page 404 Next.js
   if (!artist) {
     notFound();
   }
@@ -57,6 +64,7 @@ export default async function ArtistDetailsPage({
 
       <section className="container mx-auto max-w-6xl px-6 pb-16 md:pb-20">
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16">
+          {/* Photo grande format */}
           <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-2xl shadow-[0_20px_50px_-24px_rgba(64,80,80,0.35)] lg:mx-0">
             <ArtistImage
               src={artist.image}
@@ -66,6 +74,7 @@ export default async function ArtistDetailsPage({
             />
           </div>
 
+          {/* Infos + CTAs */}
           <div className="flex flex-col gap-6">
             <div>
               <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">

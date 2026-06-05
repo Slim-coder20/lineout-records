@@ -139,7 +139,7 @@ Fichier **généré automatiquement** par Next.js. Ne pas modifier.
 **Pourquoi :** formulaire email/mot de passe branché sur `loginAdmin`. Affiche les erreurs via `?error=...` dans l'URL.
 
 ### `app/admin/dashboard/page.tsx`
-**Quoi :** tableau de bord admin (`/admin/dashboard`).  
+**Quoi  :** tableau de bord admin (`/admin/dashboard`).  
 **Pourquoi :** page protégée par le middleware ; point d'entrée futur pour gérer artistes et productions. Bouton déconnexion via `logoutAdmin`.
 
 ---

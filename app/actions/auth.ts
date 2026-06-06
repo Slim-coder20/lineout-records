@@ -59,8 +59,8 @@ export async function loginAdmin(formData: FormData) {
   redirect("/admin/dashboard");
 }
 
-/** Supprime la session et renvoie à la page login. */
+/** Supprime la session et renvoie à l'accueil. */
 export async function logoutAdmin() {
   await deleteSession();
-  redirect("/admin");
+  redirect("/");
 }

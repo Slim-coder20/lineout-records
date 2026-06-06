@@ -16,6 +16,7 @@ const navLinks = [
   { href: "/artistes", label: "Artistes" },
   { href: "/release", label: "Productions" },
   { href: "/contact", label: "Contact" },
+  { href: "/admin", label: "Admin" },
 ] as const;
 
 export default function Footer() {

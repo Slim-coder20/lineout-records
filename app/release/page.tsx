@@ -106,12 +106,18 @@ export default async function ReleasePage() {
                     </h2>
                     <p className="mt-1 text-sm text-brand-mid">
                       {/* Lien vers la fiche de l'artiste */}
-                      <Link
-                        href={`/artistes/${production.artist.slug}`}
-                        className="font-medium text-brand-dark transition hover:text-brand-accent"
-                      >
-                        {production.artist.name}
-                      </Link>
+                      {production.artistSlug ? (
+                        <Link
+                          href={`/artistes/${production.artistSlug}`}
+                          className="font-medium text-brand-dark transition hover:text-brand-accent"
+                        >
+                          {production.artistName}
+                        </Link>
+                      ) : (
+                        <span className="font-medium text-brand-dark">
+                          {production.artistName}
+                        </span>
+                      )}
                       <span className="mx-1.5 text-brand-muted">·</span>
                       {/* Année de sortie */}
                       <span>{formatReleaseYear(production.releaseDate)}</span>

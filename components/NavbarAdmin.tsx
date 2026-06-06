@@ -1,13 +1,14 @@
 /**
  * =============================================================================
- * NAVBAR — components/NavbarAdmin.tsx
+ * NAVBAR ADMIN — components/NavbarAdmin.tsx
  * =============================================================================
- * QUOI   : Barre de navigation fixe en haut du site pour l'administration.
- * POURQUOI : Les Server Components ne peuvent pas gérer l'état interactif.
+ * QUOI   : Barre de navigation fixe pour l'espace d'administration.
+ * POURQUOI : Client Component (menu burger mobile + déconnexion accessible).
  * =============================================================================
  */
 "use client";
 
+import { logoutAdmin } from "@/app/actions/auth";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,7 +21,6 @@ const navLinks = [
   { href: "/admin/productions", label: "Productions" },
 ] as const;
 
-/** Icône burger (3 traits) ou croix selon l'état open. */
 function BurgerIcon({ open }: { open: boolean }) {
   return (
     <svg
@@ -48,9 +48,31 @@ function BurgerIcon({ open }: { open: boolean }) {
     </svg>
   );
 }
+
+function LogoutButton({ mobile }: { mobile: boolean }) {
+  return (
+    <form action={logoutAdmin}>
+      <button
+        type="submit"
+        className={
+          mobile
+            ? "block w-full rounded-lg px-3 py-3 text-left text-base font-medium text-red-700 transition-colors hover:bg-red-50"
+            : "rounded-lg border border-brand-mid/30 px-4 py-2 text-sm font-semibold text-brand-dark transition hover:bg-brand-cream-deep"
+        }
+        onClick={() => {
+          if (mobile) {
+            document.body.style.overflow = "";
+          }
+        }}
+      >
+        Se déconnecter
+      </button>
+    </form>
+  );
+}
+
 export default function NavbarAdmin() {
   const pathname = usePathname();
-  // État local : menu mobile ouvert ou fermé
   const [menuOpen, setMenuOpen] = useState(false);
 
   const linkClass = (href: string) =>
@@ -58,7 +80,6 @@ export default function NavbarAdmin() {
       ? "text-sm font-semibold leading-none text-brand-dark"
       : "text-sm leading-none text-gray-700 transition-colors hover:text-gray-900";
 
-  // Bloque le scroll du body quand le menu mobile est ouvert
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -66,7 +87,6 @@ export default function NavbarAdmin() {
     };
   }, [menuOpen]);
 
-  // Ferme le menu avec la touche Échap (accessibilité)
   useEffect(() => {
     const onEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMenuOpen(false);
@@ -77,13 +97,12 @@ export default function NavbarAdmin() {
 
   return (
     <nav
-      aria-label="Navigation principale"
+      aria-label="Navigation administration"
       className="fixed top-0 right-0 left-0 z-50 bg-brand-cream text-brand-dark shadow-[0_4px_24px_-8px_rgba(64,80,80,0.12)]"
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-3">
-        {/* Logo + nom — retour accueil */}
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
         <Link
-          href="/"
+          href="/admin/dashboard"
           className="group inline-flex shrink-0 items-center gap-2.5"
           onClick={() => setMenuOpen(false)}
         >
@@ -95,28 +114,29 @@ export default function NavbarAdmin() {
             className="shrink-0 rounded-full ring-2 ring-brand-accent/60 transition group-hover:ring-brand-accent"
             priority
           />
-          <span className="hidden text-gray-700 font-semibold leading-none tracking-wide  transition-colors group-hover:text-gray-900 sm:inline">
-            LINE OUT RECORDS
+          <span className="hidden font-semibold leading-none tracking-wide text-gray-700 transition-colors group-hover:text-gray-900 sm:inline">
+            ADMIN
           </span>
         </Link>
 
-        {/* Navigation desktop (cachée sur mobile) */}
-        <ul className="hidden items-center gap-x-6 md:flex">
-          {navLinks.map(({ href, label }) => (
-            <li key={href}>
-              <Link href={href} className={linkClass(href)}>
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden items-center gap-x-6 md:flex">
+          <ul className="flex items-center gap-x-6">
+            {navLinks.map(({ href, label }) => (
+              <li key={href}>
+                <Link href={href} className={linkClass(href)}>
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <LogoutButton mobile={false} />
+        </div>
 
-        {/* Bouton burger — visible uniquement sur mobile */}
         <button
           type="button"
           className="inline-flex items-center justify-center rounded-lg p-2 transition-colors hover:bg-brand-dark/10 md:hidden"
           aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
+          aria-controls="admin-mobile-menu"
           aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           onClick={() => setMenuOpen((open) => !open)}
         >
@@ -124,11 +144,10 @@ export default function NavbarAdmin() {
         </button>
       </div>
 
-      {/* Panneau menu mobile (animation max-height) */}
       <div
-        id="mobile-menu"
+        id="admin-mobile-menu"
         className={`overflow-hidden border-t border-brand-dark/10 bg-brand-cream transition-[max-height,opacity] duration-300 ease-in-out md:hidden ${
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-hidden={!menuOpen}
       >
@@ -148,6 +167,9 @@ export default function NavbarAdmin() {
               </Link>
             </li>
           ))}
+          <li className="mt-2 border-t border-brand-dark/10 pt-3">
+            <LogoutButton mobile={true} />
+          </li>
         </ul>
       </div>
     </nav>

@@ -51,8 +51,9 @@ export default async function ArtistDetailsPage({
 
   return (
     <div className="bg-white">
+      {/* Fil d'Ariane */}
       <section className="bg-brand-cream">
-        <div className="container mx-auto max-w-6xl px-6 py-10 md:py-14">
+        <div className="container mx-auto max-w-6xl px-6 py-4 md:py-5">
           <Link
             href="/artistes"
             className="text-sm font-medium text-brand-mid transition hover:text-brand-dark"
@@ -62,10 +63,10 @@ export default async function ArtistDetailsPage({
         </div>
       </section>
 
-      <section className="container mx-auto max-w-6xl px-6 pb-16 md:pb-20">
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2 lg:gap-16">
+      <section className="container mx-auto max-w-6xl px-6 pb-16 pt-8 md:pb-20 md:pt-10">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Photo grande format */}
-          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-2xl shadow-[0_20px_50px_-24px_rgba(64,80,80,0.35)] lg:mx-0">
+          <div className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-2xl shadow-[0_20px_50px_-24px_rgba(64,80,80,0.35)] lg:mx-0 lg:mt-1">
             <ArtistImage
               src={artist.image}
               alt={artist.name}
@@ -75,12 +76,12 @@ export default async function ArtistDetailsPage({
           </div>
 
           {/* Infos + CTAs */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8 lg:pt-1">
             <div>
               <p className="text-sm font-semibold uppercase tracking-widest text-brand-accent">
                 Artiste LineOut
               </p>
-              <h1 className="mt-2 text-4xl font-bold text-brand-dark">
+              <h1 className="mt-3 text-4xl font-bold text-brand-dark">
                 {artist.name}
               </h1>
             </div>
@@ -89,7 +90,7 @@ export default async function ArtistDetailsPage({
               {artist.description}
             </p>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-3 pt-1">
               <CtaButton href="/release" variant="outline">
                 Ses productions
               </CtaButton>

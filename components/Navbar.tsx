@@ -19,6 +19,7 @@ const navLinks = [
   { href: "/artistes", label: "Artistes" },
   { href: "/release", label: "Productions" },
   { href: "/contact", label: "Contact" },
+  { href: "/admin", label: "Admin" },
 ] as const;
 
 /** Icône burger (3 traits) ou croix selon l'état open. */
@@ -127,7 +128,7 @@ export default function Navbar() {
       <div
         id="mobile-menu"
         className={`overflow-hidden border-t border-brand-dark/10 bg-brand-cream transition-[max-height,opacity] duration-300 ease-in-out md:hidden ${
-          menuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          menuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-hidden={!menuOpen}
       >

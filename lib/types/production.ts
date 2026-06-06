@@ -14,6 +14,7 @@ export type ProductionDTO = {
   title: string;
   artistId: string;
   artistName: string;
+  artistSlug: string;
   description: string;
   type: ProductionType;
   releaseDate: string;

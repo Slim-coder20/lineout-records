@@ -17,8 +17,8 @@ Ce document explique **chaque fichier** de l'application : son rôle, pourquoi i
 | Auth admin | bcrypt + cookie de session |
 
 ```
-Visiteur → Pages publiques (/, /about, /artistes, /contact…)
-Admin    → /admin (login) → cookie → /admin/dashboard (protégé)
+Visiteur → Pages publiques (/, /about, /artistes, /release, /contact…)
+Admin    → lien « Admin » (navbar/footer) ou /admin → login → cookie → espace protégé
 Contact  → formulaire → Server Action → MongoDB + email Resend
 ```
 
@@ -36,10 +36,15 @@ lineout-records/
 │   ├── about/              # Page « À propos »
 │   ├── artistes/           # Liste + fiche artiste (données MongoDB)
 │   ├── contact/            # Formulaire + page de succès
-│   ├── release/            # Productions (stub, à compléter)
-│   ├── admin/              # Login + dashboard protégé
+│   ├── release/            # Liste publique des productions (MongoDB)
+│   ├── admin/              # Login + espace protégé (route group)
+│   │   ├── page.tsx        # Connexion (/admin)
+│   │   └── (protected)/    # NavbarAdmin + CRUD
 │   └── actions/            # Server Actions (logique serveur)
 ├── components/             # Composants React réutilisables
+│   ├── Navbar.tsx          # Navigation publique (+ lien Admin)
+│   ├── NavbarAdmin.tsx     # Navigation admin + déconnexion
+│   └── SiteChrome.tsx      # Masque navbar/footer sur /admin/*
 ├── lib/                    # Logique métier, DB, auth, email
 ├── middleware.ts           # Protection des routes /admin/*
 ├── public/studios/         # Images statiques du studio
@@ -97,7 +102,11 @@ Fichier **généré automatiquement** par Next.js. Ne pas modifier.
 
 ### `app/layout.tsx`
 **Quoi :** mise en page racine de toute l'application.  
-**Pourquoi :** évite de répéter Navbar + Footer sur chaque page. Charge la police Poppins et `globals.css`.
+**Pourquoi :** charge la police Poppins et `globals.css`. Délègue l'affichage navbar/footer à `SiteChrome`.
+
+### `components/SiteChrome.tsx`
+**Quoi :** enveloppe conditionnelle autour du contenu public.  
+**Pourquoi :** sur `/admin` et `/admin/*`, masque la navbar et le footer publics pour laisser place à `NavbarAdmin` (layout `(protected)`).
 
 ### `app/page.tsx`
 **Quoi :** page d'accueil (`/`).  
@@ -131,20 +140,31 @@ Fichier **généré automatiquement** par Next.js. Ne pas modifier.
 **Pourquoi :** feedback utilisateur après redirection de l'action contact.
 
 ### `app/release/page.tsx`
-**Quoi :** page productions (`/release`) — **stub**.  
-**Pourquoi :** placeholder en attendant le modèle MongoDB `Production` et le CRUD admin.
+**Quoi :** page productions publique (`/release`).  
+**Pourquoi :** affiche la discographie depuis MongoDB via `getProductions()`.  
+**Données :** `ProductionDTO` avec `artistName` et `artistSlug` pour le lien vers la fiche artiste.
 
 ### `app/admin/page.tsx`
 **Quoi :** page de connexion admin (`/admin`).  
-**Pourquoi :** formulaire email/mot de passe branché sur `loginAdmin`. Affiche les erreurs via `?error=...` dans l'URL.
+**Pourquoi :** formulaire email/mot de passe branché sur `loginAdmin`. Accessible via le lien « Admin » dans la navbar et le footer (desktop et mobile).
 
-### `app/admin/dashboard/page.tsx`
-**Quoi  :** tableau de bord admin (`/admin/dashboard`).  
-**Pourquoi :** page protégée par le middleware ; point d'entrée futur pour gérer artistes et productions. Bouton déconnexion via `logoutAdmin`.
+### `app/admin/(protected)/layout.tsx`
+**Quoi :** layout commun aux pages admin protégées.  
+**Pourquoi :** affiche `NavbarAdmin` une seule fois pour dashboard, artistes et productions.
+
+### `app/admin/(protected)/dashboard/page.tsx`
+**Quoi :** tableau de bord admin (`/admin/dashboard`).  
+**Pourquoi :** vue d'ensemble — compteurs, liste des artistes et des releases avec liens vers le site public et les pages CRUD.
+
+### `app/admin/(protected)/artistes/page.tsx`
+**Quoi :** CRUD artistes (`/admin/artistes`).  
+**Pourquoi :** créer, modifier et supprimer les artistes du roster via `app/actions/artists.ts`.
+
+### `app/admin/(protected)/productions/page.tsx`
+**Quoi :** CRUD productions (`/admin/productions`).  
+**Pourquoi :** créer, modifier et supprimer les releases via `app/actions/productions.ts`.
 
 ---
-
-## `app/actions/` — Server Actions
 
 Les Server Actions s'exécutent **uniquement sur le serveur** (`"use server"`). Elles reçoivent un `FormData`, traitent la logique, puis `redirect()`.
 
@@ -160,6 +180,18 @@ Les Server Actions s'exécutent **uniquement sur le serveur** (`"use server"`). 
 3. Crée ou supprime le cookie de session
 4. Redirige vers dashboard ou login
 
+### `app/actions/artists.ts` — `createArtist` / `updateArtist` / `deleteArtist`
+1. Valide les champs (name, description, image)
+2. Écrit en base via Mongoose (`Artists`)
+3. `revalidatePath` sur `/artistes` et `/admin/artistes`
+4. Redirige avec `?success=` ou `?error=`
+
+### `app/actions/productions.ts` — `createProduction` / `updateProduction` / `deleteProduction`
+1. Valide les champs et le type (`single`, `ep`, `album`…)
+2. Lie la production à un artiste existant (`ObjectId`)
+3. `revalidatePath` sur `/release` et `/admin/productions`
+4. Redirige avec `?success=` ou `?error=`
+
 ---
 
 ## `middleware.ts`
@@ -169,9 +201,9 @@ Les Server Actions s'exécutent **uniquement sur le serveur** (`"use server"`). 
 
 | Situation | Comportement |
 |-----------|--------------|
-| Non connecté + `/admin/dashboard` | → redirection `/admin` |
+| Non connecté + `/admin/dashboard` (ou artistes, productions) | → redirection `/admin` |
 | Connecté + `/admin` | → redirection `/admin/dashboard` |
-| Connecté + `/admin/dashboard` | accès autorisé |
+| Connecté + routes `(protected)` | accès autorisé |
 
 Le `matcher` limite le middleware à `/admin/:path*` uniquement.
 
@@ -180,10 +212,17 @@ Le `matcher` limite le middleware à `/admin/:path*` uniquement.
 ## `components/` — Composants réutilisables
 
 ### `Navbar.tsx` (`"use client"`)
-Barre de navigation fixe avec menu burger mobile. Client Component car il gère l'état `open/closed` du menu.
+Barre de navigation publique avec menu burger mobile. Inclut un lien **Admin** (`/admin`) visible en desktop et dans le menu mobile pour accéder à l'espace d'administration sans taper l'URL.
+
+### `NavbarAdmin.tsx` (`"use client"`)
+Barre de navigation de l'espace admin : Tableau de bord, Artistes, Productions.  
+**Déconnexion :** bouton `logoutAdmin` dans la barre (desktop) et en bas du menu burger (mobile), via un composant `LogoutButton` avec styles différents selon `mobile ? … : …`.
 
 ### `Footer.tsx`
-Pied de page : logo, liens de navigation, `SocialLinks`, copyright.
+Pied de page : logo, liens de navigation (dont **Admin**), `SocialLinks`, copyright.
+
+### `SiteChrome.tsx` (`"use client"`)
+Masque navbar et footer publics sur les routes `/admin/*` pour éviter une double navigation.
 
 ### `CtaButton.tsx`
 Bouton-lien stylé (primary / secondary / outline). Utilisé pour les appels à l'action sur les pages.
@@ -220,6 +259,9 @@ Hook `pre("save")` : génère automatiquement le `slug` depuis le nom (avec gest
 ### `lib/models/contact.ts`
 Schéma Mongoose `Contact` : messages du formulaire (`name`, `email`, `requestType`, `message`).
 
+### `lib/models/productions.ts`
+Schéma Mongoose `Productions` : `title`, `artist` (ref Artists), `description`, `type`, `releaseDate`, `genre`, `image`.
+
 ### `lib/data/artists.ts`
 Couche d'accès aux données artistes :
 - `getArtists()` — liste triée par nom
@@ -227,8 +269,20 @@ Couche d'accès aux données artistes :
 
 Transforme les documents MongoDB en `ArtistDTO` (objets simples sans méthodes Mongoose).
 
+### `lib/data/productions.ts`
+Couche d'accès aux productions :
+- `getProductions()` — liste triée par date de sortie (`.populate("artist", "name slug")`)
+
+Retourne des `ProductionDTO` avec `artistName` et `artistSlug` pour l'affichage public (`/release`).
+
 ### `lib/types/artist.ts`
-Types TypeScript partagés : `ArtistDTO` (utilisé), `ProductionDTO` (prévu pour les releases).
+Types TypeScript : `ArtistDTO`.
+
+### `lib/types/production.ts`
+Types TypeScript : `ProductionDTO`, `ProductionType`, constante `PRODUCTION_TYPES`.
+
+### `lib/config/productionTypes.ts`
+Libellés affichables des types de release (Single, EP, Album…).
 
 ### `lib/config/socialLinks.ts`
 URLs des réseaux sociaux du label. Un seul endroit à modifier si les liens changent.
@@ -273,6 +327,19 @@ Chaque requête /admin/*
 /artistes/[slug]
     → getArtistBySlug(slug)
         → connectToDB() → Artists.findOne({ slug })
+
+/release
+    → getProductions()
+        → connectToDB() → Productions.find().populate("artist")
+```
+
+### Productions (admin → site public)
+```
+Formulaire /admin/productions
+    → createProduction / updateProduction / deleteProduction
+        → connectToDB() → Productions
+    → revalidatePath("/release")
+    → visible sur /release après création
 ```
 
 ---
@@ -286,9 +353,9 @@ Les URLs commencent par `/` : `/studios/studio_2.png`.
 
 ## Prochaines étapes prévues
 
-1. CRUD admin pour les artistes (créer / modifier / supprimer)
-2. Modèle `Production` + page `/release` dynamique
-3. Brancher les productions de la home sur MongoDB
+1. Brancher les productions de la home sur MongoDB (au lieu des données statiques)
+2. Upload d'images (Cloudinary ou stockage local) depuis l'admin
+3. Confirmation avant suppression en admin
 4. Domaine email vérifié chez Resend + variables Vercel en production
 
 ---

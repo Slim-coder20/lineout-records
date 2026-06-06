@@ -8,9 +8,8 @@
  */
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Footer from "@/components/Footer";
+import SiteChrome from "@/components/SiteChrome";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 
 // Chargement optimisé de la police Google (pas de requête externe bloquante)
 const poppins = Poppins({
@@ -36,10 +35,7 @@ export default function RootLayout({
       <body
         className={`${poppins.className} min-h-full flex flex-col font-sans antialiased`}
       >
-        <Navbar />
-        {/* pt-16 compense la navbar fixed en haut */}
-        <main className="grow pt-16">{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

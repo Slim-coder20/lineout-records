@@ -9,6 +9,10 @@
  * =============================================================================
  */
 import mongoose from "mongoose";
+// Enregistre tous les schémas avant populate() — requis en prod (bundles serverless)
+import "@/lib/models/artists";
+import "@/lib/models/contact";
+import "@/lib/models/productions";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 

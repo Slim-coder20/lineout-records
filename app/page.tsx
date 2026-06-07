@@ -3,17 +3,25 @@
  * PAGE D'ACCUEIL — app/page.tsx
  * =============================================================================
  * QUOI   : Vitrine principale du site (/).
- * SECTIONS : hero, services, galerie studio, productions (placeholder), CTAs.
- * NOTE   : latestProductions est en dur pour l'instant — à brancher sur
- *          getProductions() quand la page /release sera stable.
+ * SECTIONS : hero, services, galerie studio, dernières productions (MongoDB), CTAs.
  * =============================================================================
  */
 import brandIcon from "@/app/icon.png";
+import ArtistImage from "@/components/ArtistImage";
 import CtaButton from "@/components/CtaButton";
+import { productionTypeLabels } from "@/lib/config/productionTypes";
+import { getProductions } from "@/lib/data/productions";
 import Image from "next/image";
+
+export const dynamic = "force-dynamic";
 
 // Données statiques : 4 services proposés par le studio
 const services = [
+  {
+    title: "Production musicale",
+    description:
+      "De l'idée à la maquette : arrangements, direction artistique et suivi de projet.",
+  },
   {
     title: "Enregistrement",
     description:
@@ -24,16 +32,8 @@ const services = [
     description:
       "Équilibre, profondeur et finition prêtes pour les plateformes et la diffusion.",
   },
-  {
-    title: "Production musicale",
-    description:
-      "De l'idée à la maquette : arrangements, direction artistique et suivi de projet.",
-  },
-  {
-    title: "Accompagnement",
-    description:
-      "Un label-studio qui accompagne les artistes à chaque étape de leur parcours.",
-  },
+ 
+  
 ] as const;
 
 // Photos du studio (dossier /public/studios/)
@@ -43,29 +43,10 @@ const studioGallery = [
   { src: "/studios/studio_5.png", alt: "Ambiance du studio LineOut Records" },
 ] as const;
 
-// TODO : remplacer par getProductions() (3 dernières releases MongoDB)
-const latestProductions = [
-  {
-    title: "The Beginnings",
-    artist: "Slim Abida",
-    year: "2026",
-    tag: "Single",
-  },
-  {
-    title: "EP — sortie prochaine",
-    artist: "Roster LineOut",
-    year: "2025",
-    tag: "À paraître",
-  },
-  {
-    title: "Collab studio",
-    artist: "Projets invités",
-    year: "2024",
-    tag: "Production",
-  },
-] as const;
+export default async function Home() {
+  const productions = await getProductions();
+  const latestProductions = productions.slice(0, 3);
 
-export default function Home() {
   return (
     <div className="bg-white">
       {/* --- Section hero : titre + CTAs + photo studio --- */}
@@ -175,7 +156,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- Section productions : placeholder (données en dur) --- */}
+      {/* --- Section productions : 3 dernières releases MongoDB --- */}
       <section className="container mx-auto max-w-6xl px-6 py-16 md:py-20">
         <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
@@ -191,25 +172,40 @@ export default function Home() {
           </CtaButton>
         </div>
 
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {latestProductions.map((production) => (
-            <li
-              key={production.title}
-              className="flex flex-col rounded-xl border border-brand-mid/15 bg-white p-6 shadow-sm transition hover:border-brand-accent/50"
-            >
-              <span className="w-fit rounded-full bg-brand-accent/30 px-3 py-1 text-xs font-medium text-brand-dark">
-                {production.tag}
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-brand-dark">
-                {production.title}
-              </h3>
-              <p className="mt-1 text-sm text-brand-mid">{production.artist}</p>
-              <p className="mt-auto pt-4 text-xs text-brand-muted">
-                {production.year}
-              </p>
-            </li>
-          ))}
-        </ul>
+        {latestProductions.length === 0 ? (
+          <div className="rounded-xl border border-brand-mid/20 bg-brand-cream/50 px-6 py-12 text-center">
+            <p className="text-brand-mid">Aucune production pour le moment.</p>
+          </div>
+        ) : (
+          <ul className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {latestProductions.map((production) => (
+              <li
+                key={production.id}
+                className="flex flex-col overflow-hidden rounded-xl border border-brand-mid/15 bg-white shadow-sm transition hover:border-brand-accent/50"
+              >
+                <div className="relative aspect-square overflow-hidden">
+                  <ArtistImage
+                    src={production.image}
+                    alt={`Pochette — ${production.title}`}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <span className="w-fit rounded-full bg-brand-accent/30 px-3 py-1 text-xs font-medium text-brand-dark">
+                    {productionTypeLabels[production.type]}
+                  </span>
+                  <h3 className="mt-4 text-lg font-semibold text-brand-dark">
+                    {production.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-brand-mid">{production.artistName}</p>
+                  <p className="mt-auto pt-4 text-xs text-brand-muted">
+                    {production.releaseDate.slice(0, 4)}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       {/* --- CTA : redirection vers /artistes --- */}
